@@ -1,5 +1,6 @@
 import os
 from pynput.keyboard import Listener
+from time import sleep
 
 
 taulukko = {
@@ -41,39 +42,24 @@ taulukko = {
    "9" : "----." 
 }
 
-temp_viesti = ""
-
-def lue_viesti():
-    # todo: virheet kii..
-    temp_viesti = "" # tyhjennetaan
-    print("Enter message: ")
-    with Listener(on_press=on_press, on_release=on_release) as listener:
-        listener.join()
-
-    print(message)
-
-def on_press(key):
-    print("Key pressed: {0}".format(key))
-    if not isinstance(key, str):
-        return
-    lowkey = key.lower()
-    if not lowkey in taulukko.keys():
-        return
-    
-    temp_viesti += lowkey
-
-def on_release(key):
-    pass
-
-def main():
-    print("Aloitetaan!")
-    # 1. syötä lause (while) kunnes ctrl-C
-    #   -- lue key press, kunnes EOF
-    lue_viesti()
-    # 2. käännä syöte morsejonoksi
-    # 3. echota ja piipitä
-
-
+# 1. The length of a dot is 1 time unit.
+# 2. A dash is 3 time units.
+# 3. The space between symbols (dots and dashes) of the same letter is 1 time unit.
+# 4. The space between letters is 3 time units.
+# 5. The space between words is 7 time units.
+timefactor = 0.05 # 50 millisecs
 
 if __name__ == "__main__":
-    main()
+    # input
+    print("syota lause (ja paina enter):\n")
+    input1 = input()
+
+    # juokse läpi
+    for kirjain in input1:
+        if kirjain not in taulukko:
+            print()
+            continue
+        morsemerkki = taulukko[kirjain]
+        print(morsemerkki, " ")
+        sleep(timefactor)
+
