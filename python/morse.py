@@ -48,7 +48,7 @@ taulukko = {
 # 3. The space between symbols (dots and dashes) of the same letter is 1 time unit.
 # 4. The space between letters is 3 time units.
 # 5. The space between words is 7 time units.
-timeunit = 0.2 # 50 millisecs
+timeunit = 0.15 # 150 millisecs
 
 # from enum import Enum
 # class MorseAction(Enum):
@@ -65,19 +65,17 @@ def tarkista( syote):
 
 def printAsIs(morsemerkki, endofline):
     if morsemerkki is None:
-        print("   ", end="") # sanaväli
+        print("   ", end="", flush=True) # sanaväli
     else:
-        print(morsemerkki, end=" ")
+        print(morsemerkki, end=" ", flush=True)
     if endofline:
-        print() # rivinvaihto
+        print(flush=True) # rivinvaihto
     sleep(timeunit)
 
 def print_timed(morsemerkki, endofline):
     if morsemerkki is None:
         # sanaväli
-        print("   ", end="")
-        sys.stdout.flush()
-        sleep(7*timeunit)
+        print("   ", end="", flush=True); sleep(7*timeunit)
     else:
         # yhden kirjaimen tulostus
         for dash_or_dot in morsemerkki:
@@ -85,22 +83,18 @@ def print_timed(morsemerkki, endofline):
                 factor = 3
             else:
                 factor = 1
-            print(dash_or_dot, end="")
-            sys.stdout.flush()
-            sleep(factor*timeunit)
+            print(dash_or_dot, end="", flush=True); sleep(factor*timeunit)
         # kirjaimen vali
-        print(dash_or_dot, end=" ")
-        sys.stdout.flush()
-        sleep(1*timeunit)
+        print(end=" ", flush=True); sleep(1*timeunit)
     if endofline:
         # rivinvaihto, viesti loppu
-        print()
-        sys.stdout.flush()
-        sleep(1 * timeunit)
+        print(flush=True); sleep(1 * timeunit)
+
 
 def juokse_lapi(syote):
     counter = 0
-    for kirjain in input1:
+    for element in input1:
+        kirjain = element.lower()
         counter = counter + 1
         if kirjain is ' ':
             morsemerkki = None
