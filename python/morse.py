@@ -2,6 +2,8 @@ import os
 from pynput.keyboard import Listener
 from time import sleep
 import sys
+#from winsound import Beep
+import winsound
 
 
 taulukko = {
@@ -49,6 +51,8 @@ taulukko = {
 # 4. The space between letters is 3 time units.
 # 5. The space between words is 7 time units.
 timeunit = 0.15 # 150 millisecs
+frequency = 2500
+beebed = False
 
 # from enum import Enum
 # class MorseAction(Enum):
@@ -85,7 +89,34 @@ def print_timed(morsemerkki, endofline):
                 factor = 1
             print(dash_or_dot, end="", flush=True); sleep(factor*timeunit)
         # kirjaimen vali
-        print(end=" ", flush=True); sleep(1*timeunit)
+        print(end=" ", flush=True); sleep(3*timeunit)
+    if endofline:
+        # rivinvaihto, viesti loppu
+        print(flush=True); sleep(1 * timeunit)
+
+
+
+def print_and_beep(morsemerkki, endofline):
+    # clear the throat
+    global beebed
+    if not beebed:
+        winsound.Beep(100, 100)
+        sleep(1*timeunit)
+        beebed = True
+    if morsemerkki is None:
+        # sanaväli
+        print("   ", end="", flush=True); sleep(7*timeunit)
+    else:
+        # yhden kirjaimen tulostus
+        for dash_or_dot in morsemerkki:
+            factor = 1
+            if dash_or_dot is '-':
+                factor = 3
+            print(factor, end="")
+            print(dash_or_dot, end="", flush=True) # no sleep
+            winsound.Beep(frequency, int(factor*timeunit*1000))
+        # kirjaimen vali
+        print(end=" ", flush=True); sleep(3*timeunit)
     if endofline:
         # rivinvaihto, viesti loppu
         print(flush=True); sleep(1 * timeunit)
@@ -96,7 +127,7 @@ def juokse_lapi(syote):
     for element in input1:
         kirjain = element.lower()
         counter = counter + 1
-        if kirjain is ' ':
+        if element is ' ':
             morsemerkki = None
         elif kirjain not in taulukko:
             # skip
@@ -105,7 +136,8 @@ def juokse_lapi(syote):
             morsemerkki = taulukko[kirjain]
         endofline = counter == len(input1)
         #printAsIs(morsemerkki, endofline)
-        print_timed(morsemerkki, endofline)
+        #print_timed(morsemerkki, endofline)
+        print_and_beep(morsemerkki, endofline)
 
 
 if __name__ == "__main__":
