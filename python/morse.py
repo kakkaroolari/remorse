@@ -1,6 +1,7 @@
 import os
 from pynput.keyboard import Listener
 from time import sleep
+import sys
 
 
 taulukko = {
@@ -47,7 +48,7 @@ taulukko = {
 # 3. The space between symbols (dots and dashes) of the same letter is 1 time unit.
 # 4. The space between letters is 3 time units.
 # 5. The space between words is 7 time units.
-timefactor = 0.05 # 50 millisecs
+timeunit = 0.2 # 50 millisecs
 
 # from enum import Enum
 # class MorseAction(Enum):
@@ -69,17 +70,35 @@ def printAsIs(morsemerkki, endofline):
         print(morsemerkki, end=" ")
     if endofline:
         print() # rivinvaihto
-    sleep(timefactor)
+    sleep(timeunit)
 
-if __name__ == "__main__":
-    # input
-    print("syota lause (ja paina enter):\n")
-    input1 = input()
+def print_timed(morsemerkki, endofline):
+    if morsemerkki is None:
+        # sanaväli
+        print("   ", end="")
+        sys.stdout.flush()
+        sleep(7*timeunit)
+    else:
+        # yhden kirjaimen tulostus
+        for dash_or_dot in morsemerkki:
+            if dash_or_dot is '-':
+                factor = 3
+            else:
+                factor = 1
+            print(dash_or_dot, end="")
+            sys.stdout.flush()
+            sleep(factor*timeunit)
+        # kirjaimen vali
+        print(dash_or_dot, end=" ")
+        sys.stdout.flush()
+        sleep(1*timeunit)
+    if endofline:
+        # rivinvaihto, viesti loppu
+        print()
+        sys.stdout.flush()
+        sleep(1 * timeunit)
 
-    # tarkista teksti on koodattavissa
-    tarkista(input1)
-
-    # juokse läpi
+def juokse_lapi(syote):
     counter = 0
     for kirjain in input1:
         counter = counter + 1
@@ -91,6 +110,18 @@ if __name__ == "__main__":
         else:
             morsemerkki = taulukko[kirjain]
         endofline = counter == len(input1)
-        printAsIs(morsemerkki, endofline)
-    
+        #printAsIs(morsemerkki, endofline)
+        print_timed(morsemerkki, endofline)
+
+
+if __name__ == "__main__":
+    # input
+    print("syota lause (ja paina enter):\n")
+    input1 = input()
+
+    # tarkista teksti on koodattavissa
+    tarkista(input1)
+
+    # juokse läpi
+    juokse_lapi(input1)
 
