@@ -52,7 +52,7 @@ taulukko = {
 # 5. The space between words is 7 time units.
 timeunit = 0.15 # 150 millisecs
 frequency = 2500
-beebed = False
+
 
 # from enum import Enum
 # class MorseAction(Enum):
@@ -95,11 +95,12 @@ def print_timed(morsemerkki, endofline):
         print(flush=True); sleep(1 * timeunit)
 
 
+beebed = False
 
 def print_and_beep(morsemerkki, endofline):
-    # clear the throat
     global beebed
     if not beebed:
+        # clear the throat
         winsound.Beep(100, 100)
         sleep(1*timeunit)
         beebed = True
@@ -112,7 +113,7 @@ def print_and_beep(morsemerkki, endofline):
             factor = 1
             if dash_or_dot is '-':
                 factor = 3
-            print(factor, end="")
+            #print(factor, end="")
             print(dash_or_dot, end="", flush=True) # no sleep
             winsound.Beep(frequency, int(factor*timeunit*1000))
         # kirjaimen vali
