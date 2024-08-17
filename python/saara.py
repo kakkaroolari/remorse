@@ -11,6 +11,13 @@ def tehtava26():
     ika = tamavuosi - syntymavuosi
     print("taytat tana vuonna:", ika)
 
+def tehtavaXX():
+    print(tehtavaXX.__name__)
+    for i in range(1,5):
+        print("iteraatio:", i)
+    
+
 if __name__ == "__main__":
     tehtava25()
     tehtava26()
+    tehtavaXX()
