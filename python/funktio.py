@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # input, syote on: (-5,-4,-3,-2,-1,0,1,2,3,4,5)
     x_arvot = range(-5, 6)
     # tulosta "otsikko"
-    print("funktio on: y = 2*x + 1") # todo: lue funktiosta.. DRY
+    print("funktio on: y = 2*x + 1   TAI TOISIN    f(x) = 2*x + 1  (=y)") # todo: lue funktiosta.. DRY
 
     # tyhja array y-arvoille:
     y_arvot = []
