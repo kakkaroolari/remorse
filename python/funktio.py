@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # input, syote on: (-5,-4,-3,-2,-1,0,1,2,3,4,5)
     x_arvot = range(-5, 6)
     # tulosta "otsikko"
-    print("y = 2*x + 1") # todo: lue funktiosta.. DRY
+    print("funktio on: y = 2*x + 1") # todo: lue funktiosta.. DRY
 
     # tyhja array y-arvoille:
     y_arvot = []
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         # laske funktiolla y:n arvo
         y_arvo = f(x_arvo)
         # tulosta pisteen koordinaatit
-        print("kun x={x}, y={y}".format(x=x_arvo, y=y_arvo))
+        print("KUN x = {x}, NIIN y = 2*({x}) + 1, ELI y = {y}".format(x=x_arvo, y=y_arvo))
         # laita y koordinaatti listaan (Sama kohta kun x)
         y_arvot.append(y_arvo)
     
