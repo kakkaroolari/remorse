@@ -2,30 +2,11 @@ import numpy as np                 # v 1.19.2
 import matplotlib.pyplot as plt    # v 3.3.2
 #from pylab import *
 
-
-def f(x):
-    return 2*x + 1
-
-if __name__ == "__main__":
-    # input, syote on: (-5,-4,-3,-2,-1,0,1,2,3,4,5)
-    x_arvot = range(-5, 6)
-    # tulosta "otsikko"
-    print("y = 2*x + 1") # todo: lue funktiosta.. DRY
-    # iteroi x_arvot arraysta:
-    y_arvot = []
-    for x_arvo in x_arvot:
-        # laske funktiolla y:n arvo
-        y_arvo = f(x_arvo)
-        # tulosta pisteen koordinaatit
-        print("kun x={x}, y={y}".format(x=x_arvo, y=y_arvo))
-        # laita y koordinaatti listaan (Sama kohta kun x)
-        y_arvot.append(y_arvo)
-    # yritä piirtää koordinaattisysteemi
-    #scatter(x_arvot, y_arvot, s=100 ,marker='o')
-    #show()
+# https://stackoverflow.com/questions/13430231/how-i-can-get-cartesian-coordinate-system-in-matplotlib
+def piirra_koordinaatistoon(x_koordinaatit, y_koordinaatit):
     # Plot points
     fig, ax = plt.subplots(figsize=(10, 10))
-    ax.scatter(x_arvot, y_arvot)
+    ax.scatter(x_koordinaatit, y_koordinaatit)
 
     # Select length of axes and the space between tick labels
     xmin, xmax, ymin, ymax = -5, 5, -5, 5
@@ -63,3 +44,30 @@ if __name__ == "__main__":
     ax.plot((0), (1), marker='^', transform=ax.get_xaxis_transform(), **arrow_fmt)
 
     plt.show()
+
+
+def f(x):
+    return 2*x + 1
+
+
+if __name__ == "__main__":
+    # input, syote on: (-5,-4,-3,-2,-1,0,1,2,3,4,5)
+    x_arvot = range(-5, 6)
+    # tulosta "otsikko"
+    print("y = 2*x + 1") # todo: lue funktiosta.. DRY
+
+    # tyhja array y-arvoille:
+    y_arvot = []
+
+    # iteroi x_arvot arraysta:
+    for x_arvo in x_arvot:
+        # laske funktiolla y:n arvo
+        y_arvo = f(x_arvo)
+        # tulosta pisteen koordinaatit
+        print("kun x={x}, y={y}".format(x=x_arvo, y=y_arvo))
+        # laita y koordinaatti listaan (Sama kohta kun x)
+        y_arvot.append(y_arvo)
+    
+    # yritä piirtää koordinaattisysteemi
+    piirra_koordinaatistoon(x_arvot, y_arvot)
+    
