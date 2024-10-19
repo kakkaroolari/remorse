@@ -46,25 +46,36 @@ def piirra_koordinaatistoon(x_koordinaatit, y_koordinaatit):
     plt.show()
 
 
+#######################
+# MUUTA TATA:
+# kayta x:aa muuttujana
+FUNKTIO = "2*x + 1"
+#FUNKTIO = "-x"
+#FUNKTIO = "x*x"
+
+
+# sama x inputtina tanne
 def f(x):
-    return 2*x + 1
+    return eval(FUNKTIO)
 
 
 if __name__ == "__main__":
     # input, syote on: (-5,-4,-3,-2,-1,0,1,2,3,4,5)
     x_arvot = range(-5, 6)
     # tulosta "otsikko"
-    print("funktio on: y = 2*x + 1   TAI TOISIN    f(x) = 2*x + 1  (=y)") # todo: lue funktiosta.. DRY
+    print("funktio on: {func}    TAI TOISIN    f(x) = {func}  (=y)".format(func=FUNKTIO)) # todo: lue funktiosta.. DRY
 
     # tyhja array y-arvoille:
     y_arvot = []
 
+    print("juostaan x arvot pienesta suurempaan, tai vasemmalta oikealle, samaan suuntaan kuin länkkärit kirjoittaa, x arvot: {0}".format(list(x_arvot)))
     # iteroi x_arvot arraysta:
     for x_arvo in x_arvot:
         # laske funktiolla y:n arvo
         y_arvo = f(x_arvo)
         # tulosta pisteen koordinaatit
-        print("KUN x = {x}, NIIN y = 2*({x}) + 1, ELI y = {y}".format(x=x_arvo, y=y_arvo))
+        x_sijoitettu = FUNKTIO.replace("x", "({x_arvo})".format(x_arvo=x_arvo))
+        print("KUN f(x={x}), NIIN y = {yht}, ELI y = {y}".format(x=x_arvo, yht=x_sijoitettu, y=y_arvo))
         # laita y koordinaatti listaan (Sama kohta kun x)
         y_arvot.append(y_arvo)
     
